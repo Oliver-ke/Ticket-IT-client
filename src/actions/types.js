@@ -1,0 +1,8 @@
+export const GET_TICKETS = 'GET_TICKETS';
+export const GET_TICKET = 'GET_TICKET';
+export const TICKET_LOADING = 'TICKET_LOADING';
+export const CURRENT_NAV = 'CURRENT_NAV';
+export const INIT_PAYMENT_REQUEST = 'PAYMENT_REQUEST';
+export const CONFIRM_PAYMENT = 'CONFIRM_PAYMANT';
+export const PAYMENT_LOADING = 'PAYMENT_LOADING';
+
