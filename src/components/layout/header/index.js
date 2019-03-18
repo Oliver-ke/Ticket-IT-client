@@ -27,8 +27,8 @@ class Header extends React.Component{
                     <Menu.Item key="1"><Link to="/"> Home </Link></Menu.Item>
                     <Menu.Item key="2"><Link to="/search"> Find Ticket</Link></Menu.Item>
                     <Menu.Item key="3"><Link to="/about">About</Link></Menu.Item>
-                    <Menu.Item key="4">Register</Menu.Item>
-                    <Menu.Item key="5">Login</Menu.Item>
+                    <Menu.Item key="4"><Link to="/register">Register</Link></Menu.Item>
+                    <Menu.Item key="5"><Link to="/login">Login</Link></Menu.Item>
                 </Menu>
           </Header>
         )

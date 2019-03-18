@@ -24,7 +24,6 @@ export const getTickets = () => dispatch =>{
 //Get a specific ticket by id
 export const getTicket = (id) => dispatch =>{
     dispatch(setTicketLoading());
-    console.log(id)
     axios.get(`/tickets/${id}`)
         .then(res => dispatch({
             type: GET_TICKET,

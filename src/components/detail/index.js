@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Card, Button, Icon} from 'antd';
 import {connect} from 'react-redux';
 import { getTicket } from '../../actions/ticketActions'
-import Form from './Form'
+import SellerForm from './SellerForm'
 
 
 
@@ -30,7 +30,7 @@ class Detail extends Component{
                 </Card>
                 {this.state.isBuy && (
                     <Card type="inner" style={{marginTop: '20px'}}  title="Buyers Detail">
-                       <Form id={_id} handleBuyClicked={() =>this.setState({buyClicked: true})}
+                       <SellerForm id={_id} handleBuyClicked={() =>this.setState({buyClicked: true})}
                         amount={amount} />
                    </Card>
                 )}

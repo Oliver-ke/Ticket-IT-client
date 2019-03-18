@@ -2,7 +2,15 @@ export const GET_TICKETS = 'GET_TICKETS';
 export const GET_TICKET = 'GET_TICKET';
 export const TICKET_LOADING = 'TICKET_LOADING';
 export const CURRENT_NAV = 'CURRENT_NAV';
+
 export const INIT_PAYMENT_REQUEST = 'PAYMENT_REQUEST';
 export const CONFIRM_PAYMENT = 'CONFIRM_PAYMANT';
 export const PAYMENT_LOADING = 'PAYMENT_LOADING';
+
+export const GET_ERRORS = 'GET_ERRORS';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
+export const ADD_TICKET = 'ADD_TICKET';
+export const GET_USER_TICKETS = 'GET_USER_TICKETS';
 
