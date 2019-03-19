@@ -1,12 +1,14 @@
 import axios from 'axios';
 import {
     ADD_TICKET,
-    GET_USER_TICKETS
+    GET_USER_TICKETS,
+    USER_TICKET_LOADING
 }from './types'
 
 
 //Adds tickets to db
 export const addTicket = data => dispatch =>{
+    dispatch(userTicketLoading())
     axios.post('/tickets', data)
         .then(res =>{
             dispatch({
@@ -21,6 +23,7 @@ export const addTicket = data => dispatch =>{
 
 //gets user specific tickets
 export const getUserTickets = userId => dispatch =>{
+    dispatch(userTicketLoading())
     axios.get(`/tickets/user/${userId}`)
         .then(res =>{
             dispatch({
@@ -36,6 +39,7 @@ export const getUserTickets = userId => dispatch =>{
 
 //Delete Tickets
 export const deleteTicket = (ticketId, userId) => dispatch =>{
+    dispatch(userTicketLoading())
     axios.delete(`/tickets/delete/:${ticketId}`)
         .then(res =>{
             dispatch(getUserTickets(userId))
@@ -47,6 +51,7 @@ export const deleteTicket = (ticketId, userId) => dispatch =>{
 
 //Edit ticket details
 export const editTicket = (ticketId, newData, userId) => dispatch =>{
+    dispatch(userTicketLoading())
     axios.put(`/tickets/edit/${ticketId}`, newData)
         .then(res =>{
             dispatch(getUserTickets(userId))
@@ -54,4 +59,11 @@ export const editTicket = (ticketId, newData, userId) => dispatch =>{
         .catch(err =>{
             console.log(err);
         })
+}
+
+//loading signal
+export const userTicketLoading = () =>{
+    return {
+        type: USER_TICKET_LOADING
+    }
 }

@@ -69,26 +69,26 @@ import {
       }
       return (
         <Row type="flex" style={{height: '80vh'}} justify="center" align="middle" >
-        <Col style={{height: '40vh'}} xs={24} sm={10}>
+        <Col style={{height: '60vh'}} xs={24} sm={10}>
           <Card style={{borderRadius:"20px"}}>
-            <div style={{textAlign: "center", marginBottom:"10px"}} >
-            <Icon rotate="90" type="login" style={{ fontSize: '100px', color: '#08c' }} theme="outlined" />
+            <div style={{textAlign: "center", marginBottom:"20px"}} >
+            <Icon  type="login" style={{ fontSize: '100px', color: '#08c' }} theme="outlined" />
             </div>
             {this.state.errors.length > 0  && (<div style={{margin: "20px"}}>
               <Alert
-                  message="Warning"
+                  message="Error"
                   description={this.state.errors}
-                  type="warning"
+                  type="error"
                   showIcon
                 />
              </div>)}
           <Form {...itemLayout} onSubmit={this.handleSubmit}>
               <Form.Item>
-                <Input type="email"  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                <Input type="email" style={{height: '50px'}}  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                  placeholder="Email" value={this.state.email} name="email" onChange={this.handleInput}/>         
               </Form.Item>
               <Form.Item>
-                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} onChange={this.handleInput}
+                <Input style={{height: '50px'}}  prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} onChange={this.handleInput}
                  type="password" placeholder="Password" value={this.state.password} name="password" />      
               </Form.Item>
               <Form.Item {...submitLayout}>

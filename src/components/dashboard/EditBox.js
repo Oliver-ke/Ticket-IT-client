@@ -1,60 +1,91 @@
-import React, {useState} from 'react'
-import {Form, Input, Button, Card} from 'antd'
+import React, {Component} from 'react'
+import {Form, Input, Button, Card, Row,Spin, Icon, Col} from 'antd'
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import { addTicket } from '../../actions/userAction'
 
+class EditBox extends Component {
+  state = {
+    name: '',
+    amount: '',
+    description: ''
+  }
 
-const EditBox = (props) =>{
-    const {TextArea} = Input
-    const [name, setName] = useState('')
-    const [description, setDesp] = useState('')
-
-    const itemLayout = {
-        wrapperCol:{
-          xs:{span: 24}
-        }
-      }
-
-    const submitLayout = {
-    wrapperCol:{
-        xs:{span: 24}
-        }
+  handleInput = (e) =>{
+    const {name,value} = e.target
+    this.setState(privstate => ({...privstate, [name]:value}))
+  }
+  handleFormSubmit = (e) =>{
+    e.preventDefault()
+    const {name,amount,description} = this.state
+    let newTicket = {
+      name,
+      amount,
+      description,
+      userId: this.props.auth.user.id
     }
+    console.log(newTicket);
+    this.props.addTicket(newTicket);
+    
+    if(!this.props.user.loading){
+      this.setState(privstate => ({name: '', amount: '', description: ''}))
+    }
+  }
+  render(){
+    const {TextArea} = Input;
+    const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
     return(
         <Card style={{margin: 10, background: "#fbfbfb", borderRadius: "10px"}}>
-            <Form {...itemLayout} layout="inline" onSubmit={() => console.log("form submited")}>
-
-          <Form.Item label="Ticket name">
-              <Input  />
-          </Form.Item>
-          <Form.Item label="Ticket name">
-              <Input  />
-          </Form.Item>
-          <Form.Item label="Ticket name">
-              <Input  />
-          </Form.Item>
-          <Form.Item label="Ticket name">
-              <Input  />
-          </Form.Item>
-          <Form.Item label="Ticket name">
-              <Input  />
-          </Form.Item>
-          <Form.Item label="Description">
-            <TextArea placeholder="Description" autosize={{ minRows: 2, maxRows: 6 }} />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit">Save</Button>
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="secondary">Cancel </Button>
-          </Form.Item>
-
-          </Form>
-          
+          {this.props.user.loading ? (<Spin indicator={antIcon} />) : (
+             <Form  onSubmit={this.handleFormSubmit}>
+             <Row gutter={24}>
+               <Col span={12}>
+                 <Col span={24}>
+                   <Form.Item label="Name">
+                     <Input value={this.state.name} name='name'
+                       onChange={this.handleInput}
+                       style={{height: '45px'}} />
+                   </Form.Item>
+                 </Col>
+                 <Col span={24}>
+                   <Form.Item label="Price">
+                     <Input type="number"value={this.state.amount} name='amount'
+                       onChange={this.handleInput} style={{height: '45px'}} />
+                   </Form.Item>
+                 </Col>
+               </Col>
+               <Col span={12}>
+                 <Form.Item label="Description">
+                   <TextArea placeholder="Description" value={this.state.description} 
+                       name='description'
+                       onChange={this.handleInput} autosize={{ minRows: 5, maxRows: 6 }} />
+                 </Form.Item>
+               </Col>
+             
+             </Row>
+             <Row>
+               <Col span={24} style={{ textAlign: 'right' }}>
+                 <Button type="primary" htmlType="submit">Add</Button>
+                 <Button onClick={this.props.cancelClick} style={{ marginLeft: 8 }}>Cancel</Button>
+               </Col>
+             </Row>
+           </Form>
+          )}
         </Card>
     )
+  }
 }
 
+EditBox.propTypes = {
+    addTicket: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
+}
 
-export default EditBox;
+const mapStateToProps = state =>({
+    auth: state.auth,
+    user: state.user
+})
+
+export default connect(mapStateToProps, { addTicket })(EditBox);
 
