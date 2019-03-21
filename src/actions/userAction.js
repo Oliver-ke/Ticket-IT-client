@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
     ADD_TICKET,
     GET_USER_TICKETS,
-    USER_TICKET_LOADING
+    USER_TICKET_LOADING,
+    DELETE_TICKET
 }from './types'
 
 
@@ -40,9 +41,13 @@ export const getUserTickets = userId => dispatch =>{
 //Delete Tickets
 export const deleteTicket = (ticketId, userId) => dispatch =>{
     dispatch(userTicketLoading())
-    axios.delete(`/tickets/delete/:${ticketId}`)
+    axios.delete(`/tickets/delete/${ticketId}`)
         .then(res =>{
-            dispatch(getUserTickets(userId))
+            dispatch({
+                type: DELETE_TICKET,
+                payload: ticketId
+            })
+            console.log(res)
         })
         .catch(err =>{
             console.log(err)

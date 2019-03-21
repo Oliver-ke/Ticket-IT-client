@@ -8,6 +8,8 @@ import {Provider} from 'react-redux';
 import store from './store';
 import setAuthToken from './utils/setAuthToken'
 
+import PrivateRoute from './components/Common/PrivateRoute'
+
 import { Layout,BackTop } from 'antd';
 import Footer from './components/layout/footer'
 import Header from './components/layout/header'
@@ -52,7 +54,15 @@ class App extends Component {
               <Route exact path="/payment" component={PaymentPage} /> */}
               <Route exact path="/login" component={loginForm} />
               <Route exact path="/register" component={RegForm} />
-              <Route exact path='/dashboard' component={Dashboard} />
+              
+              <Switch>
+                <PrivateRoute 
+                  exact
+                  path='/dashboard'
+                  component={Dashboard}
+                />
+              </Switch>
+
              </Content>
             <Footer />
             <BackTop />

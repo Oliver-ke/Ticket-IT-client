@@ -1,14 +1,17 @@
 import React, {Component} from 'react'
-import {Form, Input, Button, Card, Row,Spin, Icon, Col} from 'antd'
+import {Form, Input, Button, Card,
+   Row,Spin, Icon, Col, message} from 'antd'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { addTicket } from '../../actions/userAction'
+import modal from '../Common/notificationModal'
 
 class EditBox extends Component {
   state = {
     name: '',
     amount: '',
-    description: ''
+    description: '',
+    showModal: false
   }
 
   handleInput = (e) =>{
@@ -28,18 +31,22 @@ class EditBox extends Component {
     this.props.addTicket(newTicket);
     
     if(!this.props.user.loading){
-      this.setState(privstate => ({name: '', amount: '', description: ''}))
+      this.setState(privstate => ({name: '', amount: '', description: '', showModal: true}),
+      () =>(this.state.showModal && (modal({type:'success',
+       mssg: 'Your ticket is now live for purchase',
+       title:"Ticket added successfully", okClick:this.props.cancelClick}))))
     }
   }
   render(){
     const {TextArea} = Input;
     const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+    
     return(
         <Card style={{margin: 10, background: "#fbfbfb", borderRadius: "10px"}}>
           {this.props.user.loading ? (<Spin indicator={antIcon} />) : (
              <Form  onSubmit={this.handleFormSubmit}>
              <Row gutter={24}>
-               <Col span={12}>
+               <Col xs={24} md={12}>
                  <Col span={24}>
                    <Form.Item label="Name">
                      <Input value={this.state.name} name='name'
@@ -54,7 +61,7 @@ class EditBox extends Component {
                    </Form.Item>
                  </Col>
                </Col>
-               <Col span={12}>
+               <Col xs={24} md={12}>
                  <Form.Item label="Description">
                    <TextArea placeholder="Description" value={this.state.description} 
                        name='description'

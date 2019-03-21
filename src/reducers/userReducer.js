@@ -3,7 +3,8 @@
 import {
     GET_USER_TICKETS,
     ADD_TICKET,
-    USER_TICKET_LOADING
+    USER_TICKET_LOADING,
+    DELETE_TICKET
 }from '../actions/types'
 
 const initialState = {
@@ -23,9 +24,15 @@ export default (state=initialState, action) =>{
         case ADD_TICKET:
             return {
                 ...state, 
-                addedTicket: action.payload,
+                userTickets: [action.payload, ...state.userTickets],
                 loading: false
             };
+        case DELETE_TICKET:
+            return{
+                ...state,
+                userTickets: state.userTickets.filter(ticket =>ticket._id !== action.payload),
+                loading: false
+            }
         case USER_TICKET_LOADING:
             return {
                 ...state, loading: true

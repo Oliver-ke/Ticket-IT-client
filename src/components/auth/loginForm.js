@@ -6,7 +6,7 @@ import isEmpty from '../../validation/is-empty'
 import {Link, withRouter} from 'react-router-dom'
 
 import {
-    Form, Icon, Input, Button, Row, Col, Card, Alert 
+    Form, Icon, Input, Button, Row, Col, Card, Alert, message
   } from 'antd';
   
   class LoginForm extends Component {
@@ -20,7 +20,6 @@ import {
       let name = e.target.name;
       let value = e.target.value;
       this.setState((privState => ({[name]: value, errors: []})))
-      console.log(this.state)
     }
  //--------//
     componentDidMount() {
@@ -34,7 +33,7 @@ import {
       if (nextProps.auth.isAuthenticated) {
         this.props.history.push('/dashboard');
       }
-  
+
       if (nextProps.auth.errors) {
         console.log("error is firing")
         let arrError = Object.values(nextProps.auth.errors)
@@ -50,6 +49,14 @@ import {
        email: this.state.email,
        password: this.state.password
      }
+    //  if(!this.props.auth.isAuthenticated || !this.props.auth.errors){
+    //   const success = () =>{
+    //     message.loading('Action in progress..', 0);
+    //   }
+      
+    //   success()
+    // }
+
      this.props.loginUser(user);
     }
   
